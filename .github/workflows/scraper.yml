@@ -4,7 +4,7 @@ on:
   schedule:
     - cron: '0 9 * * 1'   # Monday 9am UTC
     - cron: '0 9 * * 4'   # Thursday 9am UTC
-  workflow_dispatch:        # allow manual runs
+  workflow_dispatch:
 
 jobs:
   scrape:
@@ -21,19 +21,24 @@ jobs:
 
       - name: Install dependencies
         run: npm install
-        working-directory: hackathon-scraper
+
+      - name: Write Google credentials file
+        run: echo '${{ secrets.GOOGLE_CREDENTIALS_JSON }}' > credentials.json
 
       - name: Run scraper
         env:
           EXASEARCH_API_KEY: ${{ secrets.EXASEARCH_API_KEY }}
           FIRECRAWL_API_KEY: ${{ secrets.FIRECRAWL_API_KEY }}
+          GOOGLE_SHEET_ID: ${{ secrets.GOOGLE_SHEET_ID }}
         run: node index.js
-        working-directory: hackathon-scraper
+
+      - name: Remove credentials before commit
+        run: rm -f credentials.json
 
       - name: Commit and push updated CSV
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add hackathon-scraper/hackathons.csv
+          git add hackathons.csv
           git diff --cached --quiet || git commit -m "chore: update hackathons.csv [$(date -u '+%Y-%m-%d')]"
           git push

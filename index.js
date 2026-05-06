@@ -3,9 +3,13 @@ import { writeFileSync } from 'fs';
 import { searchHackathons } from './src/exa.js';
 import { scrapeUrls } from './src/firecrawl.js';
 import { parseHackathons } from './src/parser.js';
+import { pushToSheet } from './src/sheets.js';
 
 const CSV_PATH = './hackathons.csv';
-const FIELDS = ['name', 'dates', 'location', 'prizes', 'theme', 'deadline', 'registration_url', 'url'];
+const FIELDS = [
+  'name', 'dates', 'location', 'prizes', 'theme', 'deadline',
+  'registration_url', 'url', 'organizer', 'contact_email', 'outreach_message',
+];
 
 function toCsv(hackathons) {
   const escape = (v) => `"${String(v ?? '').replace(/"/g, '""')}"`;
@@ -28,7 +32,11 @@ async function main() {
 
   const csv = toCsv(hackathons);
   writeFileSync(CSV_PATH, csv, 'utf8');
-  console.log(`\n✅ Saved ${hackathons.length} hackathons to ${CSV_PATH}`);
+  console.log(`✅ Saved ${hackathons.length} hackathons to ${CSV_PATH}`);
+
+  console.log('📊 Pushing to Google Sheets...');
+  const { rowsWritten } = await pushToSheet(hackathons);
+  console.log(`✅ Wrote ${rowsWritten} rows to Google Sheet`);
 }
 
 main().catch(console.error);
