@@ -1,7 +1,7 @@
 name,dates,location,prizes,theme,deadline,registration_url,url,organizer,contact_email,outreach_message
-"Claude Code: Black Belt","","","$500","","","https://gitnation.com/contents/claude-code-black-belt-3","https://gitnation.com/contents/claude-code-black-belt-3","of the developer-loved ConTejas Code podcast","","Hi of the developer-loved ConTejas Code podcast team,
+"Every hook event comes through here. Step one: write down what happened.","","","$0","","","https://dev.to/reporails/progressive-disclosure-claude-code-hooks-events-and-telemetry-1fh8","https://dev.to/reporails/progressive-disclosure-claude-code-hooks-events-and-telemetry-1fh8","a Fest near you, and touch on all the different activities you can take part in","","Hi a Fest near you, and touch on all the different activities you can take part in team,
 
-I came across Claude Code: Black Belt and wanted to reach out.
+I came across Every hook event comes through here. Step one: write down what happened. and wanted to reach out.
 
 I work on WozCode — a plugin that runs on top of any IDE using Claude Code. It helps developers cut token costs, avoid rate limits, and ship code faster, which can be a real edge during a time-boxed hackathon.
 
